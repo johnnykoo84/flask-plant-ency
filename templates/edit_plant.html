@@ -1,0 +1,67 @@
+<!-- templates/edit_plant.html -->
+{% extends "base.html" %} {% block content %}
+<h1>Edit Plant</h1>
+<form method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="family_kor_nm">과 이름</label>
+    <input
+      type="text"
+      class="form-control"
+      id="family_kor_nm"
+      name="family_kor_nm"
+      placeholder="{{ plant.family_kor_nm }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="genus_kor_nm">속 이름</label>
+    <input
+      type="text"
+      class="form-control"
+      id="genus_kor_nm"
+      name="genus_kor_nm"
+      placeholder="{{ plant.genus_kor_nm }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="plant_nm">이름</label>
+    <input
+      type="text"
+      class="form-control"
+      id="plant_nm"
+      name="plant_nm"
+      placeholder="{{ plant.plant_nm }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="img_file">사진 직접 업로드</label>
+    <input
+      type="file"
+      class="form-control"
+      id="img_file"
+      name="img_file"
+      accept="image/*"
+    />
+  </div>
+  <div class="form-group">
+    <label for="img_url">사진 저장 주소</label>
+    <input
+      type="text"
+      class="form-control"
+      id="img_url"
+      name="img_url"
+      placeholder="{{ plant.img_url }}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="desc">Description</label>
+    <textarea
+      class="form-control"
+      id="desc"
+      name="desc"
+      rows="3"
+      placeholder="{{ plant.desc }}"
+    ></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">수정하기</button>
+</form>
+{% endblock %}
