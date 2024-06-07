@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-12 text-right">
+      <a
+        href="/add"
+        class="btn btn-success"
+        style="color: white; margin-top: 2em"
+        >Add New Plant</a
+      >
+    </div>
+  </div>
+  <div class="row">
+    {% for plant in plants %}
+    <div class="col-12">
+      <!-- This ensures each plant takes a full row -->
+      <div class="card mb-3">
+        <div class="row g-0">
+          <a href="/{{ plant.id }}" class="col-md-3 card-box data-plant-id="{{ plant.id }}">
+              <img
+              src="{{ plant.img_url }}"
+              class="img-fluid rounded-start card-img-top"
+              alt="{{ plant.family_kor_nm }}"
+              />
+            </a>
+          <div class="col-md-9">
+            <div class="card-body">
+              <h5 class="card-title">과: {{ plant.family_kor_nm }}</h5>
+              <h5 class="card-title">속: {{ plant.genus_kor_nm }}</h5>
+              <p class="card-title">이름: {{ plant.plant_nm }}</p>
+              <button class="btn btn-primary" onclick="window.location.href='/edit/{{ plant.id }}'">Edit</button>
+              <button class="btn btn-danger" onclick="confirmDelete('{{ plant.id }}', '{{ plant.plant_nm }}')">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+      <p>No plants found.</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+function confirmDelete(id, name) {
+  if (confirm('Do you really want to delete ' + name + '?')) {
+    fetch('/delete/' + id, { method: 'POST' })
+      .then(response => {
+        if (response.ok) {
+          window.location.reload(); // Reload the page to reflect the changes
+        } else {
+          alert('Failed to delete the plant.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error deleting the plant.');
+      });
+  }
+}
+</script>
+{% endblock %}
