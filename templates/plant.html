@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-3 d-flex align-items-center" style="padding: 1rem">
+            <img
+              src="{{ plant.img_url }}"
+              class="img-fluid rounded-start"
+              alt="{{ plant.family_kor_nm }}"
+            />
+          </div>
+          <div class="col-md-9">
+            <div class="card-body">
+              <h5 class="card-title">과: {{ plant.family_kor_nm }}</h5>
+              <h5 class="card-title">속: {{ plant.genus_kor_nm }}</h5>
+              <p class="card-title">이름: {{ plant.plant_nm }}</p>
+              <p class="card-text">{{ plant.desc }}</p>
+              <button
+                class="btn btn-primary"
+                onclick="window.location.href='/edit/{{ plant.id }}'"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-danger"
+                onclick="confirmDelete('{{ plant.id }}', '{{ plant.plant_nm }}')"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function confirmDelete(id, name) {
+    if (confirm("Do you really want to delete " + name + "?")) {
+      fetch("/delete/" + id, { method: "POST" })
+        .then((response) => {
+          if (response.ok) {
+            window.location.href = "/"; // Redirect to the main page
+          } else {
+            alert("Failed to delete the plant.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Error deleting the plant.");
+        });
+    }
+  }
+</script>
+{% endblock %}
