@@ -1,0 +1,68 @@
+<!-- templates/add_plant.html -->
+{% extends "base.html" %} {% block content %}
+<h1>Add New Plant</h1>
+<form method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="family_kor_nm">과 이름</label>
+    <input
+      type="text"
+      class="form-control"
+      id="family_kor_nm"
+      name="family_kor_nm"
+    />
+  </div>
+  <div class="form-group">
+    <label for="genus_kor_nm">속 이름</label>
+    <input
+      type="text"
+      class="form-control"
+      id="genus_kor_nm"
+      name="genus_kor_nm"
+    />
+  </div>
+  <div class="form-group">
+    <label for="plant_nm">이름</label>
+    <input
+      type="text"
+      class="form-control"
+      id="plant_nm"
+      name="plant_nm"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="img_file">사진 직접 업로드</label>
+    <input
+      type="file"
+      class="form-control"
+      id="img_file"
+      name="img_file"
+      accept="image/*"
+    />
+  </div>
+  <div class="form-group">
+    <label for="img_url">사진 저장 주소</label>
+    <input type="text" class="form-control" id="img_url" name="img_url" />
+  </div>
+  <div class="form-group">
+    <label for="desc">Description</label>
+    <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Plant</button>
+</form>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+    const fileInput = document.getElementById("img_file");
+
+    form.addEventListener("submit", function (event) {
+      const file = fileInput.files[0];
+      if (file && file.size > 1024 * 1024) {
+        // 1MB
+        alert("File size should not exceed 1MB.");
+        event.preventDefault(); // Prevent form submission
+      }
+    });
+  });
+</script>
+{% endblock %}

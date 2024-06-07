@@ -23,6 +23,41 @@ def get_plant(id):
         else:
             return 'Plant not found', 404
 
+@app.route("/add", methods=['GET','POST'])
+def add_plant():
+    if request.method == 'POST':
+        family_kor_nm = request.form.get('family_kor_nm')
+        genus_kor_nm = request.form.get('genus_kor_nm')
+        plant_nm = request.form.get('plant_nm')
+        desc = request.form.get('desc')
+        file = request.files['img_file']
+
+        img_url = handle_file_upload(file, app)
+        if img_url is None:
+            if request.form.get('img_url', '') != '':
+                img_url = request.form.get('img_url')
+            else:
+                return "Invalid file or no file uploaded", 400
+        print('family_kor_nm', family_kor_nm)
+        print('genus_kor_nm', genus_kor_nm)
+        print('plant_nm', plant_nm)
+        print('img_url', img_url)
+        print('desc', desc)
+        if not plant_nm:
+            return "Plant name is required", 400
+        else:
+            new_plant = {
+                "id": len(data) + 1,
+                "family_kor_nm": family_kor_nm,
+                "genus_kor_nm": genus_kor_nm,
+                "img_url": img_url,
+                "plant_nm": plant_nm,
+                "desc": desc,
+            }
+            data.append(new_plant)
+            return redirect(url_for('get_all_plants'))
+    return render_template("add_plant.html")
+
 @app.route("/delete/<int:id>", methods=['POST'])
 def delete_plant(id):
     print('delete_plant', id)
