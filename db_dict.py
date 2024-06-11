@@ -1,6 +1,5 @@
-data = [
-    {
-        "id": 1,
+data = {
+    "8r8VM92":{
         "plant_nm": "깻잎",
         "family_kor_nm": "깻잎과",
         "family_nm": "Brassica",
@@ -9,8 +8,7 @@ data = [
         "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr8Uh-buvRfMZZXw4LYjN5OZthg6mmEIFsWA&s",
         "desc": "깻잎은 맛있다"
     },
-    {
-        "id": 2,
+    "FfTW54H": {
         "plant_nm": "코코아잎",
         "family_kor_nm": "코코아잎과",
         "family_nm": "Coccaceae",
@@ -19,8 +17,7 @@ data = [
         "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2GJiBJWcs7UlQQDc5ceHK1li4x22AboerzA&s",
         "desc": "코코아 하하"
         },
-    {
-        "id": 3,
+    "zfxHhhP":{
         "plant_nm": "소나무",
         "family_kor_nm": "소나무과",
         "family_nm": "Solanaceae",
@@ -29,8 +26,7 @@ data = [
         "img_url": "https://i.namu.wiki/i/HPXSQ7eVZsn3oSvNtBItitmeqVnuGq6W-yNzxjsiNAJBgwWM4lr-aIUvr1XEFMVdkEkaOfL4DsesDgaOaZVU-A.webp",
         "desc": "소나무는 맛있다"
         },
-    {
-        "id": 4,
+    "hp5rSnG": {
         "plant_nm": "무궁화",
         "family_kor_nm": "무궁화과",
         "family_nm": "Monocotyledon",
@@ -38,8 +34,7 @@ data = [
         "genus_nm": "Monocotyledon",
         "img_url": "https://i.namu.wiki/i/U3xs4ovgGfDKlDujDDa4amcUg9F4xjGKE5X3ZeNc6Jmg1NOxcy6HIJPLCDsNIHDlbgYAcrEui2-Z_H6VsJ921A.webp",
         "desc": "무궁화는 맛있다"    },
-    {
-        "id": 5,
+    "zGbo34T":{
         "plant_nm": "벚꽅",
         "family_kor_nm": "벚꽃과",
         "family_nm": "Monocotyledon",
@@ -47,4 +42,4 @@ data = [
         "genus_nm": "Monocotyledon",
         "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBCszt6vqLKVVlTYgd4QBy505uM-5gLsoCLA&s",
         "desc": "벚꽃 놀이가자"    }
-]
+}

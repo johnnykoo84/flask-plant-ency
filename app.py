@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
-from db import data
+from db_dict import data
 from img_upload import handle_file_upload
+import shortuuid
 
 app = Flask(__name__)
 
@@ -13,19 +14,15 @@ def get_all_plants():
 def about():
     return render_template("about.html")
 
-@app.route('/<int:id>')
+@app.route('/<string:id>')
 def get_plant(id):
     # find individual data with matched id
     print('id', id)
-    max_len = len(data)
-    if id > max_len:
+    if not data[id]:
         return 'Plant not found', 404
     else:
-        plant = data[id-1]
-        if plant:
-            return render_template('plant.html', plant=plant)
-        else:
-            return 'Plant not found', 404
+        plant = data[id]
+        return render_template('plant.html', plant=plant)
 
 @app.route("/add", methods=['GET','POST'])
 def add_plant():
@@ -50,37 +47,34 @@ def add_plant():
         if not plant_nm:
             return "Plant name is required", 400
         else:
-            new_plant = {
-                "id": len(data) + 1,
+            new_id = shortuuid.ShortUUID().random(length=7)
+            data[new_id] = {
                 "family_kor_nm": family_kor_nm,
                 "genus_kor_nm": genus_kor_nm,
                 "img_url": img_url,
                 "plant_nm": plant_nm,
                 "desc": desc,
             }
-            data.append(new_plant)
             return redirect(url_for('get_all_plants'))
     return render_template("add.html")
 
-@app.route("/delete/<int:id>", methods=['POST'])
+@app.route("/delete/<string:id>", methods=['POST'])
 def delete_plant(id):
     print('delete_plant', id)
-    max_len = len(data)
-    print('max_len', max_len)
-
-    if id > max_len:
+    print('data to delete', data[id])
+    if id not in data:
+        print('data not found', data[id])
         return 'Plant not found', 404
     else:
-        del data[id-1]
+        print('data to delete found', data[id])
+        del data[id]
         return redirect(url_for('get_all_plants'))
     
-@app.route("/edit/<int:id>", methods=['GET', 'POST'])
+@app.route("/edit/<string:id>", methods=['GET', 'POST'])
 def edit_plant(id):
-    plant_to_edit = data[id-1]
-    print('plant_to_edit', plant_to_edit)
-    if not plant_to_edit:
+    if id not in data:
         return "Plant not found", 404
-
+    plant_to_edit = data[id]
     if request.method == 'POST':
         if request.form.get('family_kor_nm', '') != '':
             plant_to_edit['family_kor_nm'] = request.form.get('family_kor_nm')
@@ -103,7 +97,7 @@ def edit_plant(id):
         plant_to_edit['img_url'] = img_url
 
         print('plant_to_edit.img_url', plant_to_edit['img_url'])
-        data[id-1] = plant_to_edit
+        # data[id] = plant_to_edit
         return redirect(url_for('get_all_plants'))
 
 

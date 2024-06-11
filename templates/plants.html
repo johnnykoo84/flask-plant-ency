@@ -11,12 +11,12 @@
     </div>
   </div>
   <div class="row">
-    {% for plant in plants %}
+    {% for plant_id, plant in plants.items() %}
     <div class="col-12">
       <!-- This ensures each plant takes a full row -->
       <div class="card mb-3">
         <div class="row g-0">
-          <a href="/{{ plant.id }}" class="col-md-3 card-box data-plant-id="{{ plant.id }}">
+          <a href="/{{ plant_id }}" class="col-md-3 card-box data-plant-id="{{ plant_id }}">
               <img
               src="{{ plant.img_url }}"
               class="img-fluid rounded-start card-img-top"
@@ -28,8 +28,8 @@
               <h5 class="card-title">과: {{ plant.family_kor_nm }}</h5>
               <h5 class="card-title">속: {{ plant.genus_kor_nm }}</h5>
               <p class="card-title">이름: {{ plant.plant_nm }}</p>
-              <button class="btn btn-primary" onclick="window.location.href='/edit/{{ plant.id }}'">Edit</button>
-              <button class="btn btn-danger" onclick="confirmDelete('{{ plant.id }}', '{{ plant.plant_nm }}')">Delete</button>
+              <button class="btn btn-primary" onclick="window.location.href='/edit/{{ plant_id }}'">Edit</button>
+              <button class="btn btn-danger" onclick="confirmDelete('{{ plant_id }}', '{{ plant.plant_nm }}')">Delete</button>
             </div>
           </div>
         </div>
@@ -48,6 +48,7 @@ function confirmDelete(id, name) {
   if (confirm('Do you really want to delete ' + name + '?')) {
     fetch('/delete/' + id, { method: 'POST' })
       .then(response => {
+        console.log('response!!', response);
         if (response.ok) {
           window.location.reload(); // Reload the page to reflect the changes
         } else {
