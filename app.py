@@ -9,6 +9,10 @@ app = Flask(__name__)
 def get_all_plants():
     return render_template('plants.html', plants=data)
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 @app.route('/<int:id>')
 def get_plant(id):
     # find individual data with matched id
