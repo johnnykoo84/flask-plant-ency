@@ -56,7 +56,7 @@ def add_plant():
             }
             data.append(new_plant)
             return redirect(url_for('get_all_plants'))
-    return render_template("add_plant.html")
+    return render_template("add.html")
 
 @app.route("/delete/<int:id>", methods=['POST'])
 def delete_plant(id):
@@ -103,7 +103,7 @@ def edit_plant(id):
         return redirect(url_for('get_all_plants'))
 
 
-    return render_template("edit_plant.html", plant=plant_to_edit)
+    return render_template("edit.html", plant=plant_to_edit)
 
 if __name__ == '__main__':
     app.run(debug=True)
