@@ -36,3 +36,4 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 static/images/*
+!/static/images/.gitkeep
